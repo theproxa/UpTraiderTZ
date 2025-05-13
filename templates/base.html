@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Древовидное меню Django{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .sidebar {
+            width: 250px;
+            padding: 20px;
+            background: #f5f5f5;
+            border-radius: 5px;
+            margin-right: 20px;
+        }
+        .content {
+            flex: 1;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .menu {
+            list-style: none;
+            padding: 0;
+        }
+        .menu-item {
+            margin-bottom: 5px;
+        }
+        .menu-item a {
+            display: block;
+            padding: 8px 12px;
+            color: #333;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        .menu-item a:hover {
+            background: #e0e0e0;
+        }
+        .menu-item.active > a {
+            background: #4CAF50;
+            color: white;
+        }
+        .menu-item.active-parent > a {
+            background: #81C784;
+            color: white;
+        }
+        .submenu {
+            list-style: none;
+            padding-left: 20px;
+            margin-top: 5px;
+            display: none;
+        }
+        .menu-item.active .submenu,
+        .menu-item.active-parent .submenu {
+            display: block;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            {% load menu_tags %}
+            <h3>Главное меню</h3>
+            {% draw_menu 'main_menu' %}
+        </div>
+        
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</body>
+</html>
